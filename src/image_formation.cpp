@@ -1,5 +1,6 @@
 #include "opencv2/opencv.hpp"
 
+// Rotation around major axes 
 #define Rx(rx)      (cv::Mat_<double>(3, 3) << 1, 0, 0, 0, cos(rx), -sin(rx), 0, sin(rx), cos(rx))
 #define Ry(ry)      (cv::Mat_<double>(3, 3) << cos(ry), 0, sin(ry), 0, 1, 0, -sin(ry), 0, cos(ry))
 #define Rz(rz)      (cv::Mat_<double>(3, 3) << cos(rz), -sin(rz), 0, sin(rz), cos(rz), 0, 0, 0, 1)
@@ -14,7 +15,7 @@ int main()
 
     // Load a point cloud in the homogeneous coordinate
     FILE* fin = fopen("data/box.xyz", "rt");
-    if (fin == NULL) return -1;
+    if (fin == nullptr) return -1;
     cv::Mat X;
     while (!feof(fin))
     {
@@ -57,7 +58,7 @@ int main()
         cv::imshow(cv::format("3DV_Tutorial: Image Formation %d", i), image);
 
         FILE* fout = fopen(cv::format("image_formation%d.xyz", i).c_str(), "wt");
-        if (fout == NULL) return -1;
+        if (fout == nullptr) return -1;
         for (int c = 0; c < x.cols; c++)
             fprintf(fout, "%f %f 1\n", x.at<double>(0, c), x.at<double>(1, c));
         fclose(fout);
